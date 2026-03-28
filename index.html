@@ -3,243 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anushka Digital Newta - Secure Portal</title>
+    <title>Anushka Digital Newta - Secure Cloud Portal</title>
     <style>
-        :root { 
-            --primary: #d32f2f; 
-            --secondary: #1a2a6c;
-            --bg: #0f2027; 
-            --glass: rgba(255, 255, 255, 0.08); 
-            --text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
+        :root { --primary: #d32f2f; --secondary: #1a2a6c; --bg: #0f2027; --glass: rgba(255, 255, 255, 0.1); }
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #2c5364, #203a43, #0f2027); color: white; min-height: 100vh; }
         
-        body { 
-            margin: 0; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: linear-gradient(135deg, #2c5364, #203a43, #0f2027); 
-            color: white; 
-            min-height: 100vh; 
-            overflow-x: hidden; 
-        }
-        
-        /* Animated Banner */
-        .banner {
-            background: linear-gradient(45deg, var(--secondary), var(--primary), var(--secondary));
-            background-size: 400% 400%;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            animation: gradientAnimation 10s ease infinite;
-            border-bottom: 3px solid rgba(255,255,255,0.1);
-        }
-        
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        .banner-title {
-            font-size: 3em;
-            font-weight: 800;
-            margin: 0;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: var(--text-shadow);
-            animation: titleFadeIn 1.5s ease-out;
-        }
-        
-        .banner-subtitle {
-            font-size: 1.2em;
-            margin: 10px 0 0;
-            color: #f0f0f0;
-            font-style: italic;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-            animation: subtitleFadeIn 2s ease-out;
-        }
-        
-        @keyframes titleFadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes subtitleFadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Banner */
+        .banner { background: linear-gradient(45deg, var(--secondary), var(--primary), var(--secondary)); background-size: 400% 400%; padding: 40px 20px; text-align: center; animation: grad 10s ease infinite; border-bottom: 3px solid rgba(255,255,255,0.1); }
+        @keyframes grad { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+        .banner h1 { font-size: 3em; margin: 0; text-transform: uppercase; letter-spacing: 3px; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
 
         /* Navigation */
-        nav { 
-            background: rgba(0,0,0,0.6); 
-            padding: 15px; 
-            display: flex; 
-            justify-content: center; 
-            gap: 15px; 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            backdrop-filter: blur(10px); 
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .nav-link { 
-            color: white; 
-            text-decoration: none; 
-            font-weight: bold; 
-            padding: 10px 20px; 
-            border-radius: 25px; 
-            cursor: pointer; 
-            border: 2px solid transparent; 
-            transition: all 0.3s ease; 
-            text-transform: uppercase;
-            font-size: 0.9em;
-            letter-spacing: 1px;
-        }
-        
-        .nav-link:hover, .nav-link.active-tab { 
-            border-color: var(--primary); 
-            background: var(--primary); 
-            box-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
-        }
+        nav { background: rgba(0,0,0,0.6); padding: 15px; display: flex; justify-content: center; gap: 10px; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
+        .nav-link { color: white; text-decoration: none; font-weight: bold; padding: 10px 20px; border-radius: 25px; cursor: pointer; border: 2px solid transparent; transition: 0.3s; }
+        .nav-link:hover, .active-tab { background: var(--primary); border-color: var(--primary); }
 
         /* Containers */
-        .container { 
-            max-width: 950px; 
-            margin: 40px auto; 
-            padding: 40px; 
-            background: var(--glass); 
-            border-radius: 20px; 
-            backdrop-filter: blur(15px); 
-            border: 1px solid rgba(255,255,255,0.1); 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6); 
-            display: none; 
-            border-top: 4px solid var(--primary);
-        }
-        
-        .active { display: block; animation: containerFadeIn 0.6s ease; }
-        @keyframes containerFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .container { max-width: 950px; margin: 30px auto; padding: 30px; background: var(--glass); border-radius: 15px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); display: none; animation: fadeIn 0.5s ease; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Login */
-        #loginSection { text-align: center; margin-top: 80px; max-width: 450px; }
-        
-        input, textarea { 
-            width: 100%; 
-            padding: 15px; 
-            margin: 12px 0; 
-            border-radius: 8px; 
-            border: 1px solid rgba(255,255,255,0.1); 
-            outline: none; 
-            box-sizing: border-box; 
-            font-size: 16px; 
-            background: rgba(0,0,0,0.3); 
-            color: white; 
-            transition: all 0.3s ease;
-        }
-        
-        input:focus, textarea:focus { 
-            border-color: var(--primary); 
-            background: rgba(0,0,0,0.5); 
-            box-shadow: 0 0 8px rgba(211, 47, 47, 0.3);
-        }
-        
-        ::placeholder { color: #ccc; }
+        /* Form Controls */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: rgba(0,0,0,0.4); color: white; box-sizing: border-box; outline: none; border: 1px solid transparent; }
+        input:focus { border-color: var(--primary); }
+        .btn { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; font-size: 16px; }
+        .btn:hover { background: #b71c1c; transform: translateY(-2px); }
 
-        .btn { 
-            background: var(--primary); 
-            color: white; 
-            border: none; 
-            padding: 15px 30px; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            text-transform: uppercase; 
-            width: 100%; 
-            transition: all 0.3s ease; 
-            font-size: 16px; 
-            letter-spacing: 1px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        }
-        
-        .btn:hover { 
-            background: #b71c1c; 
-            transform: translateY(-2px); 
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-        }
-        
-        .btn:active { transform: translateY(0); box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-
-        /* Form Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        
-        h2 { 
-            font-size: 2em; 
-            font-weight: 700; 
-            margin-top: 0; 
-            margin-bottom: 30px; 
-            color: white; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            text-shadow: var(--text-shadow);
-            border-bottom: 2px solid rgba(255,255,255,0.1);
-            padding-bottom: 15px;
-        }
-        
-        h3 { color: #ff4b2b; margin-top: 30px; margin-bottom: 15px; font-size: 1.4em; }
-
-        /* Table */
-        .table-wrap { overflow-x: auto; margin-top: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            background: white; 
-            color: #333; 
-            font-size: 15px; 
-            min-width: 600px;
-        }
-        
+        /* Table Design */
+        .table-wrap { overflow-x: auto; margin-top: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        table { width: 100%; border-collapse: collapse; background: white; color: #333; min-width: 700px; }
         th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: var(--secondary); color: white; text-transform: uppercase; font-size: 13px; }
+        tr:hover { background: #f9f9f9; }
         
-        th { 
-            background-color: var(--secondary); 
-            color: white; 
-            text-transform: uppercase; 
-            font-size: 0.9em; 
-            letter-spacing: 1px;
-        }
-        
-        tr:last-child td { border-bottom: none; }
-        tr:hover { background-color: #f9f9f9; }
-
-        /* About Section Text */
-        .about-text { line-height: 1.9; text-align: justify; color: #e0e0e0; font-size: 1.05em; }
-        .about-text p { margin-bottom: 20px; }
-        .about-text h3 { color: #ff4b2b; margin-top: 35px; border-left: 4px solid #ff4b2b; padding-left: 15px; }
-        
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #aaa;
-            font-size: 0.9em;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: 50px;
-        }
+        /* About Text Styling */
+        .about-text { line-height: 1.8; text-align: justify; padding: 10px; color: #e0e0e0; }
+        .about-text h3 { color: #ff4b2b; margin-top: 25px; border-left: 4px solid #ff4b2b; padding-left: 15px; }
     </style>
 </head>
 <body>
 
 <div class="banner">
-    <h1 class="banner-title">Anushka Digital Newta</h1>
-    <p class="banner-subtitle">तकनीक के साथ कदम से कदम - आपका सुरक्षित डिजिटल साथी</p>
+    <h1>Anushka Digital Newta</h1>
+    <p>तकनीक के साथ कदम से कदम - आपका सुरक्षित डिजिटल साथी</p>
 </div>
 
 <nav id="topNav" style="display:none;">
-    <div class="nav-link active-tab" id="nav-feed" onclick="showTab('feedSection', 'nav-feed')">Feed Data</div>
-    <div class="nav-link" id="nav-search" onclick="showTab('searchSection', 'nav-search')">Search</div>
-    <div class="nav-link" id="nav-about" onclick="showTab('aboutSection', 'nav-about')">About Us</div>
-    <div class="nav-link" onclick="location.reload()" style="background:#444; border-color: #444; margin-left: auto;">Logout</div>
+    <div class="nav-link" id="n-feed" onclick="showTab('feedSection', 'n-feed')">Feed Data</div>
+    <div class="nav-link" id="n-search" onclick="showTab('searchSection', 'n-search')">Search</div>
+    <div class="nav-link" id="n-about" onclick="showTab('aboutSection', 'n-about')">About Us</div>
+    <div class="nav-link" onclick="location.reload()" style="background:#444; margin-left:auto;">Logout</div>
 </nav>
 
-<div id="loginSection" class="container active">
-    <h2 style="text-align:center; border:none; margin-bottom: 10px;">AUTHORIZED ACCESS</h2>
-    <p style="text-align:center; color: #ccc; margin-bottom: 30px;">कृपया आगे बढ़ने के लिए अपना गुप्त पिन दर्ज करें</p>
-    <input type="password" id="pinInput" placeholder="Enter PIN (Default: 7860)" style="text-align:center; max-width: 300px; margin: 0 auto 20px; display: block;">
-    <button class="btn" onclick="verifyPin()" style="max-width: 300px; margin: 0 auto; display: block;">Enter Secure Portal</button>
+<div id="loginSection" class="container active" style="max-width:400px; text-align:center; margin-top:80px;">
+    <h2>AUTHORIZED LOGIN</h2>
+    <input type="password" id="pinInput" placeholder="Enter PIN (7860)" style="text-align:center;">
+    <button class="btn" onclick="verifyPin()">ENTER PORTAL</button>
 </div>
 
 <div id="feedSection" class="container">
@@ -250,23 +70,22 @@
             <input type="text" id="rank" placeholder="2. Rank" required>
             <input type="text" id="name" placeholder="3. Name" required>
             <input type="text" id="depName" placeholder="4. Dependent Name" required>
-            <input type="date" id="dob" title="5. Date of Birth" required style="color: #ccc;">
-            <input type="text" id="session" placeholder="6. School Session (e.g. 2025-26)">
+            <input type="date" id="dob" required style="color:#ccc;">
+            <input type="text" id="session" placeholder="6. School Session (2025-26)">
             <input type="text" id="school" placeholder="7. School Name" required>
             <input type="text" id="cls" placeholder="8. Class" required>
             <input type="text" id="regNo" placeholder="9. Registration Number">
         </div>
-        <textarea id="remarks" placeholder="10. Remarks (Optional)" rows="4"></textarea>
-        <button type="button" class="btn" id="saveBtn" onclick="saveToCloud()" style="background:#27ae60; margin-top: 30px; font-size: 18px; padding: 18px;">💾 SAVE TO CLOUD DATABASE</button>
+        <textarea id="remarks" placeholder="10. Remarks (Optional)" rows="3"></textarea>
+        <button type="button" class="btn" id="saveBtn" onclick="saveToCloud()" style="background:#27ae60;">💾 SAVE TO SECURE DATABASE</button>
     </form>
 </div>
 
 <div id="searchSection" class="container">
     <h2>SEARCH RECORDS</h2>
-    <p style="margin-bottom: 25px; color: #ccc;">डेटाबेस में खोजने के लिए नीचे Force Number दर्ज करें।</p>
-    <div style="display:flex; gap:15px; max-width: 600px; margin-bottom: 30px;">
-        <input type="text" id="searchInp" placeholder="Enter Force Number (e.g. 123456)..." style="margin: 0;">
-        <button class="btn" onclick="fetchData()" style="width:180px; margin: 0;">Search</button>
+    <div style="display:flex; gap:10px; margin-bottom:20px;">
+        <input type="text" id="searchInp" placeholder="Enter Force Number यहाँ लिखें..." style="margin:0;">
+        <button class="btn" onclick="fetchData()" style="width:150px; margin:0;">SEARCH</button>
     </div>
     <div id="results" class="table-wrap"></div>
 </div>
@@ -276,6 +95,9 @@
     <div class="about-text">
         <p><strong>अनुष्का डिजिटल नेवता (Anushka Digital Newta)</strong> एक अग्रणी डिजिटल समाधान प्रदाता है, जो सूचना प्रौद्योगिकी और डेटा प्रबंधन के क्षेत्र में नवाचार का प्रतीक है। हमारी स्थापना का मूल उद्देश्य सरकारी और निजी क्षेत्रों में डेटा के विशाल भंडार को एक व्यवस्थित, सुरक्षित और सुलभ स्वरूप प्रदान करना है।</p>
         
+        <h3>डिजिटल क्रांति का एक नया अध्याय</h3>
+        <p>आज के इस तीव्र गति वाले युग में, जहाँ तकनीक हर क्षण बदल रही है, हमारी संस्था का मुख्य उद्देश्य आम नागरिक से लेकर सरकारी विभागों तक को ऐसी डिजिटल सुविधाएँ प्रदान करना है जो उनके कार्यों को सरल, सुगम और पारदर्शी बना सकें। हम नवाचार (Innovation) और अखंडता (Integrity) के सिद्धांतों पर कार्य करते हैं।</p>
+
         <h3>हमारा मिशन और विजन</h3>
         <p>आज के डिजिटल युग में डेटा ही सबसे बड़ी शक्ति है। अनुष्का डिजिटल नेवता का विजन "डिजिटल साक्षरता और डेटा सुरक्षा" को हर स्तर पर लागू करना है। हम जटिल कागजी प्रक्रियाओं को हटाकर उन्हें क्लाउड-आधारित डिजिटल सिस्टम में बदलने के मिशन पर काम कर रहे हैं। हमारा मानना है कि जब डेटा सही ढंग से संरचित होता है, तो निर्णय लेने की प्रक्रिया तेज और सटीक हो जाती है।</p>
 
@@ -285,51 +107,45 @@
         <h3>डेटा सुरक्षा और अखंडता</h3>
         <p>हम जानते हैं कि डेटा की गोपनीयता सर्वोपरि है। Anushka Digital Newta में, हम बहु-स्तरीय प्रमाणीकरण (Multi-layer Authentication) और एन्क्रिप्टेड क्लाउड स्टोरेज का उपयोग करते हैं। हमारे द्वारा विकसित हर पोर्टल, जैसे कि यह 'Integrated CEA Portal', यह सुनिश्चित करता है कि केवल अधिकृत व्यक्तियों के पास ही संवेदनशील जानकारी तक पहुँच हो।</p>
 
-        <h3>हमारा सामाजिक योगदान</h3>
-        <p>हम केवल एक व्यावसायिक इकाई नहीं हैं, बल्कि 'डिजिटल इंडिया' अभियान के सक्रिय भागीदार हैं। हम देश की सेवा करने वाले जवानों और सरकारी कर्मचारियों के कल्याणकारी कार्यों में तकनीकी सहायता प्रदान करने के लिए सदैव तत्पर रहते हैं। हमारा लक्ष्य तकनीकी बाधाओं को दूर कर प्रशासन और आम नागरिक के बीच एक पारदर्शी डिजिटल सेतु का निर्माण करना है।</p>
+        <h3>हमारा सामाजिक उत्तरदायित्व</h3>
+        <p>Anushka Digital Newta केवल व्यावसायिक लाभ के लिए काम नहीं करती, बल्कि हम 'डिजिटल इंडिया' के सपने को साकार करने के लिए प्रतिबद्ध हैं। हम सरकारी योजनाओं के डेटा प्रबंधन और सुरक्षा बलों (जैसे CRPF और अन्य बलों) के कल्याणकारी डेटा (जैसे CEA) के सरलीकरण में अपना योगदान देने के लिए तत्पर रहते हैं। हमारा मानना है कि यदि हम अपने डेटा को सही ढंग से प्रबंधित करते हैं, तो हम अपनी कार्यक्षमता को 200% तक बढ़ा सकते हैं।</p>
 
         <h3>भविष्य की योजनाएं</h3>
-        <p>Anushka Digital Newta भविष्य में AI-संचालित विश्लेषण (Data Analytics) और ब्लॉकचेन तकनीक को अपनाने की ओर अग्रसर है। हम ऐसी प्रणालियां विकसित कर रहे हैं जो न केवल डेटा को सुरक्षित रखेंगी, बल्कि भविष्य की आवश्यकताओं का पूर्वानुमान लगाने में भी मदद करेंगी। हम वेब विकास और डिजिटल साक्षरता के क्षेत्र में प्रशिक्षण केंद्र शुरू करने की भी योजना बना रहे हैं ताकि आने वाली पीढ़ी डिजिटल रूप से सशक्त बन सके।</p>
+        <p>आने वाले समय में Anushka Digital Newta अपनी सेवाओं में आर्टिफीसियल इंटेलिजेंस (AI) और मशीन लर्निंग को जोड़ने की योजना बना रही है। हम चाहते हैं कि डेटा केवल स्टोर न हो, बल्कि वह भविष्य की रणनीतियों को बनाने में मदद करने वाले 'इनसाइट्स' भी प्रदान करे। हम वेब विकास और डिजिटल साक्षरता के क्षेत्र में प्रशिक्षण केंद्र शुरू करने की भी योजना बना रहे हैं ताकि आने वाली पीढ़ी डिजिटल रूप से सशक्त बन सके।</p>
 
         <p style="text-align:center; margin-top:60px; border-top:1px solid rgba(255,255,255,0.1); padding-top:30px; font-style: italic; color: #ff4b2b;">
-            "प्रौद्योगिकी के माध्यम से भविष्य को सशक्त बनाना"
+            "आपका भरोसा, हमारी डिजिटल शक्ति। अनुष्का डिजिटल नेवता - तकनीक के साथ कदम से कदम।"
         </p>
+        
+        <div style="text-align:center; margin-top:40px;">
+            <p style="font-size:12px; color:#aaa;">ADMIN PANEL ACCESS</p>
+            <button class="btn" onclick="fetchAllRecords()" style="background:#34495e; width:220px;">VIEW ALL RECORDS</button>
+        </div>
+        <div id="allDataContainer" class="table-wrap"></div>
     </div>
 </div>
 
-<footer>
-    &copy; 2023 Anushka Digital Newta. All Rights Reserved. Secure Cloud Solutions.
-</footer>
-
 <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxMWgiyA_ELXEcq8rwZMyerUZ5YBi2_arBkrbH6cZogywis1a62LpCSsrE_ZLvZ7tey8A/exec"; // यहाँ अपना Apps Script URL डालें
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxMWgiyA_ELXEcq8rwZMyerUZ5YBi2_arBkrbH6cZogywis1a62LpCSsrE_ZLvZ7tey8A/exec";
     const MASTER_PIN = "7860";
 
     function verifyPin() {
         if(document.getElementById('pinInput').value === MASTER_PIN) {
             document.getElementById('loginSection').classList.remove('active');
             document.getElementById('topNav').style.display = 'flex';
-            showTab('feedSection', 'nav-feed');
-        } else { 
-            alert("अस्वीकृत! गलत पिन दर्ज किया गया है।"); 
-            document.getElementById('pinInput').value = '';
-        }
+            showTab('feedSection', 'n-feed');
+        } else { alert("अस्वीकृत! सही पिन डालें।"); }
     }
 
-    function showTab(tabId, navId) {
+    function showTab(id, navId) {
         document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active-tab'));
-        
-        document.getElementById(tabId).classList.add('active');
-        if(navId) document.getElementById(navId).classList.add('active-tab');
-        
-        // Scroll to top of container smoothly
-        window.scrollTo({ top: document.querySelector('.banner').offsetHeight - 20, behavior: 'smooth' });
+        document.getElementById(id).classList.add('active');
+        document.getElementById(navId).classList.add('active-tab');
     }
 
     async function saveToCloud() {
         const btn = document.getElementById('saveBtn');
-        const form = document.getElementById('ceaForm');
         const data = {
             fNo: document.getElementById('fNo').value,
             rank: document.getElementById('rank').value,
@@ -343,92 +159,64 @@
             remarks: document.getElementById('remarks').value
         };
 
-        // Basic validation
-        if(!data.fNo || !data.rank || !data.name || !data.depName || !data.dob || !data.school || !data.cls) {
-            return alert("कृपया सभी अनिवार्य फ़ील्ड्स (Force No, Rank, Name, Dependent, DOB, School, Class) भरें।");
-        }
+        if(!data.fNo || !data.name) return alert("Force Number और Name जरूरी है!");
 
-        if(SCRIPT_URL === "YOUR_GOOGLE_SCRIPT_URL_HERE") {
-            return alert("कृपया कोड में अपना Google Apps Script URL सेट करें।");
-        }
-
-        btn.disabled = true; 
-        btn.innerText = "सेव हो रहा है... कृपया प्रतीक्षा करें...";
-        btn.style.background = "#aaa";
+        btn.disabled = true; btn.innerText = "SAVING... PLEASE WAIT";
         
         try {
             await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
-            alert("सफलता: डेटा Google Sheets में सुरक्षित रूप से सेव हो गया है!");
-            form.reset();
-        } catch (e) { 
-            console.error(e);
-            alert("त्रुटि: डेटा सेव नहीं हो सका। कृपया कनेक्शन चेक करें।"); 
-        }
-        
-        btn.disabled = false; 
-        btn.innerText = "💾 SAVE TO CLOUD DATABASE";
-        btn.style.background = "#27ae60";
+            alert("सफलता: डेटा Google Sheets में सुरक्षित सेव हो गया!");
+            document.getElementById('ceaForm').reset();
+        } catch (e) { alert("त्रुटि: डेटा सेव नहीं हो सका।"); }
+        btn.disabled = false; btn.innerText = "💾 SAVE TO SECURE DATABASE";
     }
 
     async function fetchData() {
         const query = document.getElementById('searchInp').value;
         const resDiv = document.getElementById('results');
-        
-        if(!query) return alert("कृपया खोजने के लिए Force Number दर्ज करें!");
-        if(SCRIPT_URL === "YOUR_GOOGLE_SCRIPT_URL_HERE") {
-            return alert("कृपया कोड में अपना Google Apps Script URL सेट करें।");
-        }
+        if(!query) return alert("खोजने के लिए Force Number डालें!");
 
-        resDiv.innerHTML = "<p style='text-align:center; color: #ccc;'>डेटाबेस में खोज जारी है... कृपया रुकें...</p>";
+        resDiv.innerHTML = "<p style='text-align:center;'>खोज जारी है... कृपया रुकें...</p>";
         
         try {
             const response = await fetch(`${SCRIPT_URL}?fNo=${query}`);
-            if (!response.ok) throw new Error('Network response was not ok');
-            
             const results = await response.json();
             
             if(results.length > 0) {
-                let h = `<table>
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Dependent Name</th>
-                                    <th>DOB</th>
-                                    <th>School</th>
-                                    <th>Class</th>
-                                    <th>Session</th>
-                                    <th>Remarks</th>
-                                </tr>
-                            </thead>
-                            <tbody>`;
-                results.forEach(r => { 
-                    // Format date if needed, assuming r.dob is 'YYYY-MM-DD'
-                    let formattedDob = r.dob; 
-                    if(r.dob && r.dob.includes('-')) {
-                        const parts = r.dob.split('-');
-                        formattedDob = `${parts[2]}/${parts[1]}/${parts[0]}`; // DD/MM/YYYY
-                    }
-                    
-                    h += `<tr>
-                            <td><strong>${r.name}</strong><br><span style='color:#666;font-size:0.85em;'>${r.fNo} (${r.rank})</span></td>
-                            <td>${r.dep}</td>
-                            <td>${formattedDob}</td>
-                            <td>${r.sch}</td>
-                            <td>${r.cls}</td>
-                            <td>${r.sess || '-'}</td>
-                            <td>${r.rem || '-'}</td>
-                          </tr>`; 
+                let html = `<table><tr><th>Name & Rank</th><th>Dependent</th><th>School & Class</th><th>Session</th><th>Remarks</th></tr>`;
+                results.forEach(r => {
+                    html += `<tr>
+                        <td><strong>${r.name || '-'}</strong><br><small>${r.rank || '-'} (${r.fNo || '-'})</small></td>
+                        <td>${r.dep || '-'}</td>
+                        <td>${r.sch || '-'}<br><small>Class: ${r.cls || '-'}</small></td>
+                        <td>${r.sess || '-'}</td>
+                        <td>${r.rem || '-'}</td>
+                    </tr>`;
                 });
-                resDiv.innerHTML = h + "</tbody></table>";
-            } else { 
-                resDiv.innerHTML = "<p style='text-align:center; color:yellow; font-weight:bold; padding: 20px; background: rgba(255,255,0,0.1); border-radius: 8px;'>इस Force Number का कोई रिकॉर्ड नहीं मिला।</p>"; 
+                resDiv.innerHTML = html + "</table>";
+            } else {
+                resDiv.innerHTML = "<p style='text-align:center; color:yellow;'>कोई रिकॉर्ड नहीं मिला।</p>";
             }
-        } catch (e) { 
-            console.error(e);
-            resDiv.innerHTML = "<p style='text-align:center; color:red; font-weight:bold; padding: 20px; background: rgba(255,0,0,0.1); border-radius: 8px;'>कनेक्शन विफल। कृपया सुनिश्चित करें कि Script URL सही है और Anyone एक्सेस सेट है।</p>"; 
+        } catch (e) {
+            resDiv.innerHTML = "<p style='text-align:center; color:red;'>सर्वर कनेक्शन विफल।</p>";
         }
     }
-</script>
 
+    async function fetchAllRecords() {
+        const cont = document.getElementById('allDataContainer');
+        cont.innerHTML = "<p>डेटाबेस लोड हो रहा है...</p>";
+        try {
+            const resp = await fetch(`${SCRIPT_URL}?action=readAll`);
+            const data = await resp.json();
+            if(data.length > 0) {
+                let h = `<table><tr><th>Force No</th><th>Name</th><th>School</th><th>Class</th></tr>`;
+                data.forEach(r => {
+                    h += `<tr><td>${r.fNo}</td><td>${r.name}</td><td>${r.sch}</td><td>${r.cls}</td></tr>`;
+                });
+                cont.innerHTML = h + "</table>";
+            } else { cont.innerHTML = "डेटाबेस खाली है।"; }
+        } catch (e) { cont.innerHTML = "विफल!"; }
+    }
+</script>
 </body>
 </html>
